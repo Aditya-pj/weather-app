@@ -8,7 +8,7 @@ class RouteGenerator
 {
   static Route<dynamic> generateRoute(RouteSettings settings)
   {
-    final args = settings.arguments as Map<String,dynamic>;
+    final args = settings.arguments as Map<dynamic,dynamic>?;
     switch(settings.name)
     {
       
@@ -19,7 +19,7 @@ class RouteGenerator
       return MaterialPageRoute(builder: (_) => const Profile());
       case '/detailedweather':
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:2657948861.
-      if (args is Map<String,dynamic>)
+      if (args is Map<dynamic,dynamic> && args!=null)
       {
       return MaterialPageRoute(builder: (_) => DetailedWeather(name: args['name'],temp: args['temp'],temp_min: args['temp_min'],temp_max: args['temp_max'],humidity: args['humidity'],wind_speed: args['wind_speed'],pressure: args['pressure'],visibility: args['visibility'], ));
       }
