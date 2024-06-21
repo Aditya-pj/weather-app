@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class DetailedWeather extends StatelessWidget {
   final dynamic name;
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3602156718.
+
   final dynamic temp_min;
   final dynamic temp_max;
   final dynamic humidity;
   final dynamic wind_speed;
   final dynamic pressure;
   final dynamic visibility;
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3773456992.
+
   
   final dynamic temp;
   const DetailedWeather({super.key, required this.name, required this.temp_min, required this.temp_max, required this.humidity, required this.wind_speed, required this.pressure, required this.visibility, required this.temp});
@@ -89,6 +89,5 @@ class DetailedWeather extends StatelessWidget {
   }
 }
 
-//
-//
+
       

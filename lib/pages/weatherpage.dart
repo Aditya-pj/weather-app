@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:myapp/pages/profile.dart';
 
 class Weatherpage extends StatefulWidget {
   const Weatherpage({super.key});
@@ -66,7 +68,22 @@ class _WeatherpageState extends State<Weatherpage> {
     }
   }
 
+  String username = "User";
   TextEditingController textcontrol = TextEditingController();
+
+ void _getinfo() async {
+    SharedPreferences prefGet = await SharedPreferences.getInstance();
+    setState(() {
+      userCity = prefGet.getString('homeCity')!;
+      username = prefGet.getString('name') ?? "User";
+      get_weather(userCity);
+    });
+ }
+  @override
+  void initState() {
+    super.initState();
+    _getinfo();
+  }
 
   @override
 
@@ -83,9 +100,9 @@ class _WeatherpageState extends State<Weatherpage> {
                 future: get_weather(userCity),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return const Text("ERROR");
+                    return Text("ERROR");
                   } else if (snapshot.hasData) {
                     Map<String,dynamic> data = snapshot.data;
                     dynamic main = data["weather"][0]["main"];
@@ -100,11 +117,19 @@ class _WeatherpageState extends State<Weatherpage> {
                     dynamic visibility = data["visibility"]/1000;
                    return Center(
                      child: Padding(
-                       padding: const EdgeInsets.all(20.0),
+                       padding: EdgeInsets.all(12.0),
                        child: Expanded(
                          child: ListView(
                           padding: EdgeInsets.all(10),
                             children: [
+                              Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text("Hello, $username",
+                                style: const TextStyle(color: Colors.white,
+                                
+                                fontSize: 30),
+                                )
+                                ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: TextField(
@@ -210,7 +235,7 @@ class _WeatherpageState extends State<Weatherpage> {
                         const Padding(
                           padding: EdgeInsets.all(50.0),
                           child: Center(
-                            child: Text("No data available",
+                            child: Text("No data available for the city you entered",
                             style: TextStyle(color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -218,8 +243,13 @@ class _WeatherpageState extends State<Weatherpage> {
                           ),
                         )),
                         ElevatedButton(onPressed: () {
-                          Navigator.pushNamed(context, '/');
-                        }, child: const Text("Go Back",
+                          setState( () {
+                            userCity = "London";
+                            get_weather(userCity);
+                          }
+                          );
+                        },
+                         child: const Text("Go Back",
                         style: TextStyle(color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),))
@@ -235,46 +265,5 @@ class _WeatherpageState extends State<Weatherpage> {
       }
 
 
-      // Padding(
-      //                           padding: const EdgeInsets.all(8.0),
-      //                           child: Text("Minimum temperature: ${temp_min.toStringAsFixed(2)}\u2103",
-      //                           style: const TextStyle(color: Colors.white,
-                               
-      //                           fontSize: 14),),
-      //                         ),
-      //                         Padding(
-      //                           padding: const EdgeInsets.all(8.0),
-      //                           child: Text("Maximum temperature: ${temp_max.toStringAsFixed(2)}\u2103",
-      //                           style: const TextStyle(color: Colors.white,
-                         
-      //                           fontSize: 14),),
-      //                         ),
-      //                         Padding(
-      //                           padding: const EdgeInsets.all(8.0),
-      //                           child: Text("Humidity: ${humidity.toString()} %",
-      //                           style: const TextStyle(color: Colors.white,
-                        
-      //                           fontSize: 14),),
-      //                         ),
-      //                         Padding(
-      //                           padding: const EdgeInsets.all(8.0),
-      //                           child: Text("Wind Speed: ${wind_speed.toString()} km/h",
-      //                           style: const TextStyle(color: Colors.white,
-                    
-      //                           fontSize: 14),),
-      //                         ),
-      //                         Padding(
-      //                           padding: const EdgeInsets.all(8.0),
-      //                           child: Text("Pressure: ${pressure.toString()} mb",
-      //                           style: const TextStyle(color: Colors.white,
-                     
-      //                           fontSize: 14),),
-      //                         ),
-      //                         Padding(
-      //                           padding: const EdgeInsets.all(8.0),
-      //                           child: Text("visibility: ${visibility.toString()} km",
-      //                           style: const TextStyle(color: Colors.white,
-                          
-      //                           fontSize: 14),),
-      //                         )
+   
 }
