@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class DetailedWeather extends StatelessWidget {
-  final String name;
+  final dynamic name;
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3602156718.
-  final String temp_min;
-  final String temp_max;
-  final String humidity;
-  final String wind_speed;
-  final String pressure;
-  final String visibility;
+  final dynamic temp_min;
+  final dynamic temp_max;
+  final dynamic humidity;
+  final dynamic wind_speed;
+  final dynamic pressure;
+  final dynamic visibility;
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3773456992.
   
-  final String temp;
+  final dynamic temp;
   const DetailedWeather({super.key, required this.name, required this.temp_min, required this.temp_max, required this.humidity, required this.wind_speed, required this.pressure, required this.visibility, required this.temp});
 
   @override
@@ -35,14 +35,14 @@ class DetailedWeather extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text("Minimum temperature: ${temp_min}\u2103",
+                                child: Text("Minimum temperature: ${temp_min.toStringAsFixed(2)}\u2103",
                                 style: const TextStyle(color: Colors.white,
                                
                                 fontSize: 14),),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text("Maximum temperature: ${temp_max}\u2103",
+                                child: Text("Maximum temperature: ${temp_max.toStringAsFixed(2)}\u2103",
                                 style: const TextStyle(color: Colors.white,
                          
                                 fontSize: 14),),
