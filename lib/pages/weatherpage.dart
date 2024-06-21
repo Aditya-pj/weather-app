@@ -188,11 +188,13 @@ class _WeatherpageState extends State<Weatherpage> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: FloatingActionButton(onPressed: () {
                                   
-                                  Navigator.pushNamed(context, '/profile');
+                                  Navigator.pushNamed(context, '/detailedweather', arguments: {'name': name, 'temp': temp, 'temp_min': temp_min, 'temp_max': temp_max, 'humidity': humidity, 'wind_speed': wind_speed, 'pressure': pressure, 'visibility': visibility}
+                                  );
                                 },
                                 backgroundColor: Colors.yellow,
                                 shape: const CircleBorder(),
-                                child: const Icon(Icons.arrow_forward_ios)),
+                                child: const Icon(Icons.arrow_forward_ios)
+                                ),
                               ),
                               
                             ]
