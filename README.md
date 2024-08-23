@@ -7,4 +7,4 @@ Flutter was used for inplementation.<br>
 OpenWeatherMap API was used to fetch weather data<br>
 <a>https://openweathermap.org/api</a>
 
->>>>>>> branch1
+
